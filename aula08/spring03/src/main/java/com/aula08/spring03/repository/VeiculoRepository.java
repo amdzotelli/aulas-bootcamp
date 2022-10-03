@@ -1,0 +1,31 @@
+package com.aula08.spring03.repository;
+
+import com.aula08.spring03.model.Veiculo;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.stereotype.Repository;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+@Repository
+public class VeiculoRepository {
+    private final String linkFile = "src/main/resources/veiculo.json";
+    ObjectMapper mapper = new ObjectMapper();
+
+    public Optional<Veiculo> getVeiculo(String placa) {
+        List<Veiculo> veiculos = null;
+        try {
+            veiculos = Arrays.asList(mapper.readValue(new File(linkFile), Veiculo[].class));
+        } catch (Exception ex) {
+
+        }
+        for(Veiculo v: veiculos) {
+            if(v.getPlaca().equals(placa)) {
+                return Optional.of(v);
+            }
+        }
+        return Optional.empty();
+    }
+}
