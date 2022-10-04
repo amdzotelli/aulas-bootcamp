@@ -1,5 +1,6 @@
 package com.aula08.spring03.service;
 
+import com.aula08.spring03.dto.VeiculoDTO;
 import com.aula08.spring03.exception.NotFoundException;
 import com.aula08.spring03.model.Veiculo;
 import com.aula08.spring03.repository.VeiculoRepository;
@@ -26,8 +27,11 @@ public class VeiculoService implements IVeiculo {
     }
 
     @Override
-    public List<Veiculo> getAllVeiculos() {
-        return repository.getAll();
+    public List<VeiculoDTO> getAllVeiculos() {
+        return repository.getAll().stream()
+                // .map(v->new VeiculoDTO(v))
+                .map(VeiculoDTO::new)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -44,7 +48,7 @@ public class VeiculoService implements IVeiculo {
 
     @Override
     public List<Veiculo> getByModel(String model) {
-        return getAllVeiculos().stream()
+        return getAllOrdersByValue().stream()
                 .filter(v-> v.getModelo().equalsIgnoreCase(model))
                 .collect(Collectors.toList());
     }
