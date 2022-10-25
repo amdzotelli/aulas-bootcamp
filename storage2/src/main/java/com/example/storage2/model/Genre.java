@@ -21,7 +21,7 @@ public class Genre {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "genre")
+    @OneToMany(mappedBy = "genre", fetch = FetchType.LAZY)
     @JsonIgnoreProperties("genre")
     private List<Book> books;
 

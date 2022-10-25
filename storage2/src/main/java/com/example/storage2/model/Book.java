@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -22,5 +23,9 @@ public class Book {
     @JoinColumn(name = "id_genre")
     @JsonIgnoreProperties("books")
     private Genre genre;
+
+    @ManyToMany(mappedBy = "books")
+    @JsonIgnoreProperties("books")
+    private Set<Author> authors;
 
 }
