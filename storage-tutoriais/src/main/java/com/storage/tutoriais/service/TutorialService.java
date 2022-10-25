@@ -39,7 +39,7 @@ public class TutorialService implements ITutorialService {
 
     @Override
     public List<Tutorial> getPublished() {
-        return null;
+        return repository.findByStatus(Status.PUBLISHED);
     }
 
     @Override
